@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Transaction;
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -32,6 +33,18 @@ class DatabaseSeeder extends Seeder
         foreach ($trips as $trip) {
             $trip->members()->attach($user);
             $trip->members()->syncWithoutDetaching($users);
+        }
+
+        Transaction::factory(2)->create([
+            'user_id' => $user,
+            'trip_id' => $trips[0]
+        ]);
+
+        foreach ($users as $user) {
+            Transaction::factory(2)->create([
+                'user_id' => $user,
+                'trip_id' => $trips[0]
+            ]);
         }
     }
 }

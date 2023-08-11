@@ -18,4 +18,8 @@ class Trip extends Model
     public function members() {
         return $this->belongsToMany(User::class);
     }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
 }
