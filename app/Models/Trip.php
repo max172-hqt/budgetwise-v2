@@ -9,8 +9,10 @@ class Trip extends Model
 {
     use HasFactory;
 
+    protected $with = ['admin'];
+
     public function admin() {
-        return $this->belongsTo(User::class, 'admin_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function members() {

@@ -19,6 +19,7 @@ class TripFactory extends Factory
     {
         return [
             'name' => fake()->sentence(),
+            'description' => fake()->paragraph(),
             'slug' => fake()->slug(),
             'user_id' => User::factory(),
         ];

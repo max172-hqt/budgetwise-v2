@@ -23,12 +23,15 @@ class DatabaseSeeder extends Seeder
 
         $users = User::factory(3)->create();
 
-        $trip = Trip::factory()
+        $trips = Trip::factory(5)
             ->create([
                 'user_id' => $user
             ]);
 
-        $trip->members()->attach($user);
-        $trip->members()->syncWithoutDetaching($users);
+
+        foreach ($trips as $trip) {
+            $trip->members()->attach($user);
+            $trip->members()->syncWithoutDetaching($users);
+        }
     }
 }

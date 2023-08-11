@@ -31,6 +31,11 @@ Route::get(
     [TripsController::class, 'index']
 )->middleware(['auth', 'verified'])->name('trips');
 
+Route::get(
+    '/trips/{trip}',
+    [TripsController::class, 'show']
+)->middleware(['auth', 'verified'])->name('trip.show');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
