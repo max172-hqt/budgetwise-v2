@@ -17,7 +17,7 @@ export default function Welcome({ auth }: PageProps) {
           <div className="flex justify-center items-center mt-6 gap-4">
             {auth.user ? (
               <Link
-                href={route('dashboard')}
+                href={route('trips')}
                 className="font-extrabold bg-red-500 text-white hover:bg-red-600 uppercase px-4 py-2"
               >
                 Go to my Trips

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BudgetWise\TripsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/trips', function () {
-    return Inertia::render('Trips');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get(
+    '/trips',
+    [TripsController::class, 'index']
+)->middleware(['auth', 'verified'])->name('trips');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,4 +37,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
