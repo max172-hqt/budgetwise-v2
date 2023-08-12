@@ -2,8 +2,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { PageProps, Trip } from '@/types'
 
-export default function Trips({ auth, trip }: PageProps<{ trip: Trip }>) {
-  console.log(trip)
+export default function TripDetail({ auth, trip, table }: PageProps<{ trip: Trip, table: any }>) {
+
+  console.log(table, trip);
+
   return (
     <AuthenticatedLayout
       user={auth.user}

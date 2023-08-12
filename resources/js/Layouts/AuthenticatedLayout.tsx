@@ -1,12 +1,12 @@
-import { useState, PropsWithChildren, ReactNode } from 'react';
+import {useState, PropsWithChildren, ReactNode} from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
-import { User } from '@/types';
+import {Link} from '@inertiajs/react';
+import {User} from '@/types';
 
-export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+export default function Authenticated({user, header, children}: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -17,12 +17,14 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800"/>
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex font-bold">
-                                <NavLink href={route('trips')} active={route().current('trips')} className='font-bold'>
+                                <NavLink href={route('trips')}
+                                         active={route().current('trips') || route().current('trip.show')}
+                                         className='font-bold'>
                                     Trips
                                 </NavLink>
                             </div>

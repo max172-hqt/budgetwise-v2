@@ -32,7 +32,7 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('trips');
 
 Route::get(
-    '/trips/{trip}',
+    '/trips/{id}',
     [TripsController::class, 'show']
 )->middleware(['auth', 'verified'])->name('trip.show');
 

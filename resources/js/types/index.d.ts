@@ -9,8 +9,13 @@ export interface Trip {
     id: number;
     name: string;
     slug: string;
-    user_id: string;
-    members_count: number;
+    userId: string;
+    memberCount: number;
+    totalExpenses: {
+        amount: string,
+        currency: string,
+        formatted: string,
+    };
     description: string;
 }
 
