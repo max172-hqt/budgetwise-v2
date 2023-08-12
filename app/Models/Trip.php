@@ -55,8 +55,6 @@ class Trip extends Model
             $table[$key] = [...$value->toArray(), 'amount' => $value->amount];
         }
 
-        dd($table);
-
         return $table;
     }
 
@@ -111,5 +109,4 @@ class Trip extends Model
 
         return $resolveTable;
     }
-
 }
