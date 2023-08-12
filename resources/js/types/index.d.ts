@@ -28,6 +28,8 @@ export interface Transaction {
   user_id: number
   amount: Money
   payer: User
+  created_at: string,
+  updated_at: string,
 }
 
 export interface Debt {

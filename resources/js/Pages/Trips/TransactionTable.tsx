@@ -1,45 +1,16 @@
-import { Transaction } from '@/types'
+import { PageProps, Transaction } from '@/types'
 import { Avatar } from '@mui/material'
-
-function stringToColor(string: string) {
-  let hash = 0
-  let i
-
-  /* eslint-disable no-bitwise */
-  for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash)
-  }
-
-  let color = '#'
-
-  for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 17)) & 0xff
-    color += `00${value.toString(16)}`.slice(-2)
-  }
-  /* eslint-enable no-bitwise */
-
-  return color
-}
-
-function stringAvatar(name: string) {
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-    },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-  }
-}
+import moment from 'moment'
+import { stringAvatar, stringToColor } from '@/utils/helper'
 
 export default function TransactionTable({
+  auth,
   transactions,
-}: {
-  transactions: Transaction[]
-}) {
-  console.log(transactions)
+}: PageProps<{ transactions: Transaction[] }>) {
   return (
     <div>
       <header className="px-5 py-4">
-        <h2 className="font-semibold text-gray-800 text-xl">Bills</h2>
+        <h2 className="font-semibold text-gray-800 text-4xl">Bill History</h2>
       </header>
       <div className="p-3">
         <div className="overflow-x-auto">
@@ -71,18 +42,20 @@ export default function TransactionTable({
                         />
                       </div>
                       <div className="font-medium text-gray-800 text-sm">
-                        {transaction.payer.name.split(' ')[0]}
+                        {transaction.payer.id === auth.user.id ? 'You' : transaction.payer.name.split(' ')[0]}
                       </div>
                     </div>
                   </td>
                   <td className="p-2 whitespace pr-4">
                     <div className="text-left flex flex-col gap-2">
                       <div className="truncate">{transaction.name}</div>
-                      <div className="truncate text-gray-400">
+                      <div className="truncate text-gray-500">
                         Paid{' '}
-                        <span className="font-semibold">
+                        <span className="font-semibold text-green-600">
                           {transaction.amount.formatted}
-                        </span>
+                        </span>{' '}
+                        on{' '}
+                        {moment(transaction.created_at).format('MMM Do YYYY')}
                       </div>
                     </div>
                   </td>
