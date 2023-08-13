@@ -2,9 +2,9 @@ import { Link } from '@inertiajs/react'
 
 export default function Pagination({ links }: { links: any }) {
   const getClass = (active: boolean) => {
-    if (active) 
-      return "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
-    return "relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+    if (active)
+      return 'relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+    return 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
   }
 
   return (
@@ -15,6 +15,7 @@ export default function Pagination({ links }: { links: any }) {
             href={links[0].url}
             className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             preserveScroll
+            preserveState
           >
             Previous
           </Link>
@@ -22,6 +23,7 @@ export default function Pagination({ links }: { links: any }) {
             href={links[links.length - 1].url}
             className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             preserveScroll
+            preserveState
           >
             Next
           </Link>
@@ -36,6 +38,7 @@ export default function Pagination({ links }: { links: any }) {
                 href={links[0].url}
                 className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                 preserveScroll
+                preserveState
               >
                 <span className="sr-only">Previous</span>
                 <svg
@@ -52,7 +55,7 @@ export default function Pagination({ links }: { links: any }) {
                 </svg>
               </Link>
               {links.map((link: any, key: number) => {
-                if (key === 0 || key === links.length - 1) return null;
+                if (key === 0 || key === links.length - 1) return null
 
                 return (
                   <Link
@@ -61,6 +64,7 @@ export default function Pagination({ links }: { links: any }) {
                     className={getClass(link.active)}
                     key={key}
                     preserveScroll
+                    preserveState
                   >
                     {link.label}
                   </Link>
@@ -71,6 +75,7 @@ export default function Pagination({ links }: { links: any }) {
                 href={links[links.length - 1].url}
                 className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                 preserveScroll
+                preserveState
               >
                 <span className="sr-only">Next</span>
                 <svg

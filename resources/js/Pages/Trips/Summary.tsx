@@ -1,5 +1,5 @@
 import { Debt, PageProps, Transaction, Trip, User } from '@/types'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CATEGORY_COLOR, stringAvatar, stringToColor } from '@/utils/helper'
 import _ from 'lodash'
 import { Avatar } from '@mui/material'
@@ -114,7 +114,7 @@ export default function Summary({
         <h2 className="font-bold text-gray-800 text-4xl">
           {trip.totalExpenses.formatted}
         </h2>
-        <div className="text-gray-500">Total Trip Expenses</div>
+        <div className="text-gray-400 mt-1">Total Trip Expenses</div>
       </header>
       <div className="px-5 py-4">
         <h3 className="text-xl font-semibold">Your Summary</h3>

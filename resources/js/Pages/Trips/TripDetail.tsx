@@ -4,8 +4,9 @@ import { DebtTable, PageProps, Transaction, Trip } from '@/types'
 import TransactionTable from './TransactionTable'
 import Summary from './Summary'
 import Insight from './Insight'
+import { useEffect } from 'react'
 
-export default function TripDetail({
+const TripDetail = ({
   auth,
   trip,
   transactions,
@@ -16,16 +17,9 @@ export default function TripDetail({
   debtTable: DebtTable
   transactions: Transaction[]
   transactionsByCategory: Transaction[]
-}>) {
+}>) => {
   return (
-    <AuthenticatedLayout
-      user={auth.user}
-      header={
-        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          {trip.name}
-        </h2>
-      }
-    >
+    <>
       <Head title="My Trips" />
 
       <div className="py-12">
@@ -48,6 +42,20 @@ export default function TripDetail({
           </div>
         </div>
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+TripDetail.layout = (page: any) => (
+  <AuthenticatedLayout
+    header={
+      <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+        {page.props.trip.name}
+      </h2>
+    }
+    user={page.props.auth.user}
+    children={page}
+  />
+)
+
+export default TripDetail
