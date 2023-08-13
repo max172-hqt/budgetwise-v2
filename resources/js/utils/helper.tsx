@@ -19,11 +19,15 @@ export function stringToColor(string: string) {
 }
 
 export function stringAvatar(name: string) {
+  const initials = name
+    .split(' ')
+    .slice(0, 2)
+    .reduce((initials, curr) => initials.concat(curr[0]), '')
   return {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: initials,
   }
 }
 

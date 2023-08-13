@@ -125,17 +125,17 @@ export default function Summary({
             <div className="flex flex-col gap-2 mt-4">
               <p className="text-red-500">You owe</p>
               {debtsInfo.debts.map((debt) => (
-                <div className="flex items-center gap-2" key={debt.payee.id}>
+                <div className="flex items-center gap-2" key={debt.user.id}>
                   <Avatar
-                    {...stringAvatar(debt.payee.name)}
+                    {...stringAvatar(debt.user.name)}
                     sx={{
                       width: 32,
                       height: 32,
                       fontSize: 12,
-                      bgcolor: stringToColor(debt.payee.name),
+                      bgcolor: stringToColor(debt.user.name),
                     }}
                   />
-                  <div>{debt.payee.name}</div>
+                  <div>{debt.user.name}</div>
                   <div className="text-red-500 font-semibold">
                     {debt.amount.formatted}
                   </div>

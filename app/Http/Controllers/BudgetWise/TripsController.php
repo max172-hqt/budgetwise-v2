@@ -26,13 +26,12 @@ class TripsController extends Controller
             ->withSum('transactions', 'amount')
             ->findOrFail($id);
 
-        $table = $trip->resolvedTable();
-
         return Inertia::render('Trips/TripDetail', [
             'trip' => $this->mapTrip($trip),
             'transactions' => $trip->transactions()->paginate(6)->onEachSide(2),
             'transactionsByCategory' => $trip->getAmountByCategory(),
-            'debtTable' => $table
+            'debtTable' => $trip->resolvedTable(),
+            'balanceTable' => $trip->getBudgetTable(),
         ]);
     }
 
@@ -46,6 +45,8 @@ class TripsController extends Controller
             'memberCount' => $trip->members_count,
             'totalExpenses' => money($trip->transactions_sum_amount),
             'description' => $trip->description,
+            'members' => $trip->members,
+            'contribution' => $trip->getContributionAmount(),
         ];
     }
 }

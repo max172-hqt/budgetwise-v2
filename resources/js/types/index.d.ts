@@ -14,6 +14,7 @@ export interface Trip {
   totalExpenses: Money
   description: string
   transactions: Transaction[]
+  members?: User[]
 }
 
 export interface Money {
@@ -36,7 +37,7 @@ export interface Transaction {
 export interface Debt {
   user_id: number
   amount: Money
-  payee: User
+  user: User
 }
 
 export type DebtTable = Record<number, { payer: User; debts: Debt[] }>

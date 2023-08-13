@@ -4,7 +4,6 @@ import { DebtTable, PageProps, Transaction, Trip } from '@/types'
 import TransactionTable from './TransactionTable'
 import Summary from './Summary'
 import Insight from './Insight'
-import { useEffect } from 'react'
 
 const TripDetail = ({
   auth,
@@ -12,6 +11,7 @@ const TripDetail = ({
   transactions,
   transactionsByCategory,
   debtTable,
+  balanceTable,
 }: PageProps<{
   trip: Trip
   debtTable: DebtTable
@@ -38,7 +38,7 @@ const TripDetail = ({
             </div>
           </div>
           <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow mt-4">
-            <Insight />
+            <Insight auth={auth} trip={trip} debtTable={debtTable} balanceTable={balanceTable} />
           </div>
         </div>
       </div>

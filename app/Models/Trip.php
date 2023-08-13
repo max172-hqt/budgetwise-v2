@@ -98,10 +98,16 @@ class Trip extends Model
                 $resolveTable[$table[$start]['user_id']]['debts'][] = [
                     'user_id' => $table[$end]['user_id'],
                     'amount' => $amount,
-                    'payee' => $table[$end]['payer']
+                    'user' => $table[$end]['payer'],
+                    'isDebt' => true
                 ];
 
-                $resolveTable[$table[$start]['user_id']]['payer'] = $table[$start]['payer'];
+                $resolveTable[$table[$end]['user_id']]['debts'][] = [
+                    'user_id' => $table[$start]['user_id'],
+                    'amount' => $amount,
+                    'user' => $table[$start]['payer'],
+                    'isDebt' => false
+                ];
 
                 if ($table[$start]['amount']->isZero() || $table[$start]['amount']->isPositive()) {
                     $start++;
