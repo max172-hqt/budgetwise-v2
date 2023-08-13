@@ -63,16 +63,18 @@ const renderActiveShape = (props: any) => {
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
-        fill="#333"
-      >{`PV ${value}`}</text>
+        fill="#ef4444"
+        fontSize={14}
+      ><tspan>{payload.formatted}</tspan></text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         dy={18}
         textAnchor={textAnchor}
         fill="#999"
+        fontSize={14}
       >
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
   )
@@ -158,6 +160,8 @@ export default function Summary({
               fill="#8884d8"
               dataKey="value"
               onMouseEnter={onPieEnter}
+              paddingAngle={8}
+              cornerRadius={4}
             >
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
