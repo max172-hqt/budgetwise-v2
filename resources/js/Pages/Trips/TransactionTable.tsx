@@ -46,6 +46,7 @@ export default function TransactionTable({
       </header>
       <div className="p-3">
         <div className="overflow-x-auto flex flex-col">
+          {transactions.data.length > 0 ? (
           <table className="table-fixed w-full overflow-scroll flex-grow">
             <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
               <tr>
@@ -102,6 +103,10 @@ export default function TransactionTable({
               ))}
             </tbody>
           </table>
+
+          ) : (
+            <div className='font-bold text-gray-400 self-center justify-self-center py-20'>No data to display</div>
+          )}
           <Pagination links={transactions.links} />
         </div>
       </div>

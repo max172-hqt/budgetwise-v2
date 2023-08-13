@@ -12,7 +12,7 @@ export default function Welcome({ auth }: PageProps) {
           </h1>
           <p className="mt-6 max-w-xl mx-auto text-center text-gray-700 text-md leading-relaxed md:mt-8 md:text-lg lg:mt-10">
             Provide an easy way to manage trips, track expenses and provide
-            suggestions on resolving debts among members in the trip.
+            suggestions on settling up debts among members in the trip.
           </p>
           <div className="flex justify-center items-center mt-6 gap-4">
             {auth.user ? (

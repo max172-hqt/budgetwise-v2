@@ -49,54 +49,59 @@ export default function Insight({
       <header className="px-5 pt-4 pb-8">
         <h2 className="font-semibold text-gray-800 text-4xl">Insights</h2>
         <div className="text-gray-400 mt-1">
-          Suggestions on resolving debts among trip members
+          Suggestions on settling up debts among trip members
         </div>
       </header>
-      <div className="pb-8">
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart
-            width={500}
-            height={300}
-            data={chartData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <XAxis dataKey="name" />
-            <YAxis
-              tickFormatter={(value, index) => {
-                if (value === 0) return trip.contribution.formatted
-                if (value > 0) return `$${value}`
-                return `-$${Math.abs(value)}`
+      {chartData.length > 0 && (
+        <div className="pb-8">
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart
+              width={500}
+              height={300}
+              data={chartData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
               }}
-            />
-            <Tooltip
-              cursor={{ fill: '#fff' }}
-              label="dsadsa"
-              formatter={(value, name, item) => item.payload.formattedAmount}
-              labelFormatter={(label, item) => {
-                return item.length > 0 ? item[0].payload.fullName : label
-              }}
-            />
-            <ReferenceLine y={0} stroke="gray" strokeWidth={1} />
-            <Bar
-              dataKey="amount"
-              name="Trip Balance"
-              onClick={(data) => setUser(data.user)}
             >
-              {chartData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={entry.amount < 0 ? '#ef4444' : '#10b981'}
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+              <XAxis dataKey="name" fontSize={14} />
+              <YAxis
+                fontSize={14}
+                fontWeight="bold"
+                tickFormatter={(value, index) => {
+                  if (value === 0) return trip.contribution.formatted
+                  if (value > 0) return `$${value}`
+                  return `-$${Math.abs(value)}`
+                }}
+              />
+              <Tooltip
+                cursor={{ fill: '#fff' }}
+                label="dsadsa"
+                formatter={(value, name, item) => item.payload.formattedAmount}
+                labelFormatter={(label, item) => {
+                  return item.length > 0 ? item[0].payload.fullName : label
+                }}
+              />
+              <ReferenceLine y={0} stroke="gray" strokeWidth={1} />
+              <Bar
+                dataKey="amount"
+                name="Trip Balance"
+                onClick={(data) => setUser(data.user)}
+                radius={[8, 8, 0, 0]}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.amount < 0 ? '#ef4444' : '#10b981'}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
       <div className="flex">
         <div className="px-5">
           <h3 className="text-xl font-semibold mb-5">Members</h3>

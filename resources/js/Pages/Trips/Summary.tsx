@@ -1,7 +1,7 @@
 import { Debt, PageProps, Transaction, Trip, User } from '@/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CATEGORY_COLOR, stringAvatar, stringToColor } from '@/utils/helper'
-import _ from 'lodash'
+import _, { divide } from 'lodash'
 import { Avatar } from '@mui/material'
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts'
 
@@ -120,7 +120,7 @@ export default function Summary({
         <h3 className="text-xl font-semibold">Your Summary</h3>
         <div>
           {!debtsInfo || debtsInfo.debts.length === 0 ? (
-            <p>You have no pending debts</p>
+            <p className='text-green-600'>You have no pending debts</p>
           ) : (
             <div className="flex flex-col gap-2 mt-4">
               <p className="text-red-500">You owe</p>
@@ -147,6 +147,7 @@ export default function Summary({
       </div>
       <div className="py-4 w-full flex flex-col gap-4 flex-grow">
         <h3 className="px-5 text-xl font-semibold">Expense details</h3>
+        {chartData.length ? (
         <ResponsiveContainer width="100%" height={300} className="flex-grow">
           <PieChart width={500} height={300}>
             <Pie
@@ -168,9 +169,13 @@ export default function Summary({
               ))}
             </Pie>
             <Legend verticalAlign="bottom" height={36} formatter={(value, entry, index) => entry.payload.label} />
-
           </PieChart>
         </ResponsiveContainer>
+
+        ): (
+          <div className='text-center py-10 font-bold text-gray-400'>No data to display</div>
+
+        )}
       </div>
     </div>
   )
