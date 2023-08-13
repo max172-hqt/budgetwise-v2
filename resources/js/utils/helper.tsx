@@ -26,3 +26,10 @@ export function stringAvatar(name: string) {
     children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
   }
 }
+
+export const CATEGORY_COLOR = {
+  transportation: '#0ea5e9',
+  food: '#eab308',
+  accomodation: '#10b981',
+  miscellaneous: '#ef4444',
+}

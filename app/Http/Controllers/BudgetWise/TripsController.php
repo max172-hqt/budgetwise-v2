@@ -30,8 +30,9 @@ class TripsController extends Controller
 
         return Inertia::render('Trips/TripDetail', [
             'trip' => $this->mapTrip($trip),
-            'transactions' => $trip->transactions,
-            'table' => $table
+            'transactions' => $trip->transactions()->paginate(6)->onEachSide(2),
+            'transactionsByCategory' => $trip->getAmountByCategory(),
+            'debtTable' => $table
         ]);
     }
 

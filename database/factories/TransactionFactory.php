@@ -22,6 +22,7 @@ class TransactionFactory extends Factory
             'user_id' => User::factory(),
             'trip_id' => Trip::factory(),
             'name' => fake()->sentence(),
+            'category' => fake()->randomElement(['transportation', 'food', 'accomodation', 'miscellaneous']),
             'amount' => fake()->randomFloat(2, 1, 1000),
         ];
     }

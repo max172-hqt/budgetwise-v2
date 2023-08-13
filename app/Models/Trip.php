@@ -37,6 +37,13 @@ class Trip extends Model
         return $total->divide($this->members()->count());
     }
 
+    public function getAmountByCategory() {
+        $res = $this->transactions()
+            ->select('category', DB::raw('sum(amount) as amount'))
+            ->groupBy('category')->get();
+        return $res;
+    }
+
     /**
      * @return array
      */
@@ -51,8 +58,7 @@ class Trip extends Model
         $table = [];
 
         foreach ($groupedTransactions as $key => $value) {
-            $value->amount = $value->amount->subtract($contributionAmount);
-            $table[$key] = [...$value->toArray(), 'amount' => $value->amount];
+            $table[$key] = [...$value->toArray(), 'amount' => $value->amount->subtract($contributionAmount)];
         }
 
         return $table;

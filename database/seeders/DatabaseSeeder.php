@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => '123456aA'
         ]);
 
-        $users = User::factory(3)->create();
+        $users = User::factory(10)->create();
 
         $trips = Trip::factory(5)
             ->create([
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         foreach ($users as $user) {
-            Transaction::factory(2)->create([
+            Transaction::factory(5)->create([
                 'user_id' => $user,
                 'trip_id' => $trips[0]
             ]);

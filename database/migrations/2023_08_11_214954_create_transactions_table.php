@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('amount', 8, 2);
+            $table->enum('category', ['transportation', 'food', 'accomodation', 'miscellaneous']);
 
             // Transaction belongs to a trip and a user
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('trip_id')->constrained()->cascadeOnDelete();
+            
 
             $table->timestamps();
         });

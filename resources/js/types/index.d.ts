@@ -30,6 +30,7 @@ export interface Transaction {
   payer: User
   created_at: string,
   updated_at: string,
+  category: 'transportation' | 'food' | 'accomodation' | 'miscellaneous'
 }
 
 export interface Debt {
@@ -38,7 +39,7 @@ export interface Debt {
   payee: User
 }
 
-export type DebtTable = Record<number, { payee: User; debts: Debt[] }>
+export type DebtTable = Record<number, { payer: User; debts: Debt[] }>
 
 export type PageProps<
   T extends Record<string, unknown> = Record<string, unknown>,
