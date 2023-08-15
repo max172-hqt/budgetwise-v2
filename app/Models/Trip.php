@@ -14,6 +14,7 @@ class Trip extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
     protected $with = ['admin'];
 
     public function admin(): BelongsTo

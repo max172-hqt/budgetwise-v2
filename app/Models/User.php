@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Trip::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, fn($query, $search) =>
+            $query->where(fn($query) =>
+                $query->where('email', 'like', '%' . $search . '%')
+                    ->orWhere('name', 'like', '%' . $search . '%')
+            )
+        );
+    }
 }

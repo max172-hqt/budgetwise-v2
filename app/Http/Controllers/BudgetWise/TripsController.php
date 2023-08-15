@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
 
 class TripsController extends Controller
 {
@@ -33,6 +34,31 @@ class TripsController extends Controller
             'debtTable' => $trip->resolvedTable(),
             'balanceTable' => $trip->getBudgetTable(),
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Trips/CreateTrip');
+    }
+
+    public function store(Request $request)
+    {
+        $attributes = $request->validate([
+            'name' => ['required', 'max:50'],
+            'description' => ['required', 'max:255'],
+            'members' => ['array']
+        ]);
+
+        $trip = Trip::create([
+            'name' => $request->name,
+            'slug' => str_slug($request->name),
+            'description' => $request->description,
+            'user_id' => auth()->id(),
+        ]);
+
+        $trip->members()->sync($request->members);
+
+        return to_route('trip.show', ['id' => $trip->id]);
     }
 
     private function mapTrip($trip)

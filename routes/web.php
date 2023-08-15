@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BudgetWise\TripsController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +34,16 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('trips');
 
 Route::get(
+    '/trips/create',
+    [TripsController::class, 'create']
+)->middleware(['auth', 'verified'])->name('trip.create');
+
+Route::post(
+    '/trips/',
+    [TripsController::class, 'store']
+)->middleware(['auth', 'verified'])->name('trip.store');
+
+Route::get(
     '/trips/{id}',
     [TripsController::class, 'show']
 )->middleware(['auth', 'verified'])->name('trip.show');
@@ -41,5 +53,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware('auth')->get('/users', function () {
+    if (request('search')) {
+        $users = User::latest()->filter(
+            request(['search'])
+        )->paginate(5);
+    } else {
+        $users = [];
+    }
+    return $users;
+})->name('users');
 
 require __DIR__ . '/auth.php';
