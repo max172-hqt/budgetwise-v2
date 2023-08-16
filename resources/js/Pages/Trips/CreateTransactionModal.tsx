@@ -1,5 +1,4 @@
 import InputError from '@/Components/InputError'
-import PrimaryButton from '@/Components/PrimaryButton'
 import TextInput from '@/Components/TextInput'
 import { Transition } from '@headlessui/react'
 import { useForm } from '@inertiajs/react'
@@ -13,7 +12,7 @@ export default function CreateTransactionModel({
   open,
   handleOpenModal,
   handleCloseModal,
-}) {
+}: any) {
   const { data, setData, post, errors, processing, recentlySuccessful } =
     useForm({
       name: '',
@@ -108,7 +107,7 @@ export default function CreateTransactionModel({
                     className="inline-flex w-full justify-center rounded-md bg-sky-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-600 sm:w-auto"
                     onClick={submit}
                   >
-                    Create
+                    {processing ? 'Creating' : 'Create'}
                   </button>
                   <button
                     type="button"

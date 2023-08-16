@@ -17,6 +17,7 @@ class TransactionsController extends Controller
         ]);
 
         Transaction::create([...$attributes, 'user_id' => auth()->id(), 'trip_id' => $request->tripId]);
+        $request->session()->flash('message', $attributes['name'] . ' is created successfully.');
 
         return to_route('trip.show', ['id' => $request->tripId]);
     }

@@ -1,9 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, usePage } from '@inertiajs/react'
 import { DebtTable, PageProps, Transaction, Trip } from '@/types'
 import TransactionTable from './TransactionTable'
 import Summary from './Summary'
 import Insight from './Insight'
+import FlashMessage from '@/Components/FlashMessage'
 
 const TripDetail = ({
   auth,
@@ -19,9 +20,13 @@ const TripDetail = ({
   transactionsByCategory: Transaction[]
   balanceTable: any
 }>) => {
+  const { flash } = usePage().props
+
   return (
     <>
       <Head title="My Trips" />
+
+      {flash.message && <FlashMessage message={flash.message} />}
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,7 +36,7 @@ const TripDetail = ({
                 trip={trip}
                 auth={auth}
                 transactionsByCategory={transactionsByCategory}
-                debtsInfo={debtTable[auth.user.id].debts}
+                debtsInfo={debtTable[auth.user.id]?.debts ?? []}
               />
             </div>
             <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-lg">

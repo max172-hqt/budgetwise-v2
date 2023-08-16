@@ -20,7 +20,7 @@ function Trips({ auth, trips }: PageProps<{ trips: Trip[] }>) {
           </div>
           <div className="lg:grid lg:grid-cols-6 gap-4">
             {trips.map((trip) => (
-              <TripCard trip={trip} key={trip.id} />
+              <TripCard trip={trip} user={auth.user} key={trip.id} />
             ))}
           </div>
         </div>

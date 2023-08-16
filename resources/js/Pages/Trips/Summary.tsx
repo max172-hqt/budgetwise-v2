@@ -100,7 +100,6 @@ export default function Summary({
   transactionsByCategory: Transaction[]
   debtsInfo: Debt[]
 }>) {
-  console.log(trip)
   const [activeIndex, setActiveIndex] = useState(0)
   const onPieEnter = useCallback(
     (_: any, index: number) => {
@@ -135,13 +134,13 @@ export default function Summary({
           <div className="text-gray-400 mt-1">Individual Contribution</div>
         </div>
       </header>
-      <div className="px-5 py-4">
-        <h3 className="text-xl font-semibold">Your Summary</h3>
-        <div>
+      <div className="px-5 py-4 ">
+        <h3 className="text-xl font-semibold mb-4">Your Summary</h3>
+        <div className='max-h-40 overflow-auto'>
           {!debts || debts.length === 0 ? (
             <p className="text-green-600">You are all set.</p>
           ) : (
-            <div className="flex flex-col gap-2 mt-4">
+            <div className="flex flex-col gap-2">
               <p
                 className={classNames('font-semibold mb-2', {
                   'text-red-500': debts[0].isDebt,

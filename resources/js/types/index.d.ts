@@ -9,7 +9,7 @@ export interface Trip {
   id: number
   name: string
   slug: string
-  userId: string
+  userId: number
   memberCount: number
   totalExpenses: Money
   description: string
@@ -51,3 +51,4 @@ export type PageProps<
     user: User
   }
 }
+

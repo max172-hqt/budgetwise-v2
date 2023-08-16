@@ -22,11 +22,14 @@ class DatabaseSeeder extends Seeder
             'password' => '123456aA'
         ]);
 
-        $users = User::factory(10)->create();
+        $users = User::factory(5)->create([
+            'password' => '123456aA'
+        ]);
 
-        $trips = Trip::factory(5)
+        $trips = Trip::factory(1)
             ->create([
-                'user_id' => $user
+                'name' => 'Toronto Summer Trip 2023',
+                'user_id' => $user,
             ]);
 
 
@@ -35,13 +38,13 @@ class DatabaseSeeder extends Seeder
             $trip->members()->syncWithoutDetaching($users);
         }
 
-        Transaction::factory(2)->create([
+        Transaction::factory(3)->create([
             'user_id' => $user,
             'trip_id' => $trips[0]
         ]);
 
         foreach ($users as $user) {
-            Transaction::factory(5)->create([
+            Transaction::factory(rand(1,5))->create([
                 'user_id' => $user,
                 'trip_id' => $trips[0]
             ]);

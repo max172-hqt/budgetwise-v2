@@ -100,10 +100,10 @@ export default function Insight({
         </div>
       )}
       <div className="flex">
-        <div className="px-5">
+        <div className="p-5 pr-0 ml-5">
           <h3 className="text-xl font-semibold mb-5">Members</h3>
           <nav
-            className="flex flex-col"
+            className="flex flex-col max-h-80 overflow-auto"
             aria-label="Tabs"
             role="tablist"
             data-hs-tabs-vertical="true"
@@ -144,13 +144,13 @@ export default function Insight({
           </nav>
         </div>
 
-        <div className="ml-3">
+        <div className="ml-3 p-5 flex-grow">
           <h3 className="text-xl font-semibold mb-5">Settle-up Suggestions</h3>
           {debts.length === 0 ? (
             <p>{user.name} is all set.</p>
           ) : (
             <div>
-              <div className="flex flex-col gap-2 my-4">
+              <div className="flex flex-col gap-2 my-4 max-h-80 overflow-auto flex-grow">
                 <p
                   className={classNames('font-semibold mb-2', {
                     'text-red-500': debts[0].isDebt,
