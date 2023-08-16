@@ -67,9 +67,7 @@ export default function Insight({
                 bottom: 5,
               }}
             >
-              <XAxis dataKey="name" fontSize={14} 
-                fontWeight="bold"
-              />
+              <XAxis dataKey="name" fontSize={14} fontWeight="bold" />
               <YAxis
                 fontSize={14}
                 tickFormatter={(value, index) => {
@@ -114,13 +112,17 @@ export default function Insight({
           >
             {trip.members?.map((member) => (
               <button
-                className={classNames('flex items-center px-4 py-1', {
-                  'border-l-2 border-sky-500 font-bold': member.id === user.id,
+                className={classNames('flex items-center py-1', {
                   'hover:bg-gray-200': member.id !== user.id,
                 })}
                 onClick={() => setUser(member)}
                 key={member.id}
               >
+                <div
+                  className={classNames('w-1 h-10 mr-4', {
+                    'bg-sky-500': member.id === user.id,
+                  })}
+                ></div>
                 <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3 flex items-center">
                   <Avatar
                     {...stringAvatar(member.name)}
@@ -133,7 +135,7 @@ export default function Insight({
                   />
                 </div>
                 <div
-                  className={classNames('text-gray-600 text-sm', {
+                  className={classNames('text-gray-600 text-sm pr-4', {
                     'text-gray-800 font-bold': member.id === user.id,
                   })}
                 >

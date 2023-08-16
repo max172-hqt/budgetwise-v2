@@ -71,7 +71,7 @@ const renderActiveShape = (props: any) => {
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
-        fill="#ef4444"
+        fontWeight="semibold"
         fontSize={14}
       >
         <tspan>{payload.formatted}</tspan>
