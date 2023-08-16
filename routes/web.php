@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BudgetWise\TransactionsController;
 use App\Http\Controllers\BudgetWise\TripsController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
@@ -47,6 +48,11 @@ Route::get(
     '/trips/{id}',
     [TripsController::class, 'show']
 )->middleware(['auth', 'verified'])->name('trip.show');
+
+Route::post(
+    '/transactions',
+    [TransactionsController::class, 'store']
+)->middleware(['auth', 'verified'])->name('transaction.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

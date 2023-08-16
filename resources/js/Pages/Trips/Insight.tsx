@@ -36,9 +36,9 @@ export default function Insight({
 
   const chartData = useMemo(() => {
     return balanceTable.map((balance) => ({
-      user: balance.payer,
-      name: balance.payer.name.split(' ')[0],
-      fullName: balance.payer.name,
+      user: balance,
+      name: balance.name.split(' ')[0],
+      fullName: balance.name,
       amount: balance.amount.amount / 100,
       formattedAmount: balance.amount.formatted,
     }))
@@ -59,6 +59,7 @@ export default function Insight({
               width={500}
               height={300}
               data={chartData}
+              maxBarSize={50}
               margin={{
                 top: 5,
                 right: 30,
@@ -66,10 +67,11 @@ export default function Insight({
                 bottom: 5,
               }}
             >
-              <XAxis dataKey="name" fontSize={14} />
+              <XAxis dataKey="name" fontSize={14} 
+                fontWeight="bold"
+              />
               <YAxis
                 fontSize={14}
-                fontWeight="bold"
                 tickFormatter={(value, index) => {
                   if (value === 0) return trip.contribution.formatted
                   if (value > 0) return `$${value}`
@@ -78,7 +80,6 @@ export default function Insight({
               />
               <Tooltip
                 cursor={{ fill: '#fff' }}
-                label="dsadsa"
                 formatter={(value, name, item) => item.payload.formattedAmount}
                 labelFormatter={(label, item) => {
                   return item.length > 0 ? item[0].payload.fullName : label
@@ -159,18 +160,18 @@ export default function Insight({
                   {user.name} {debts[0].isDebt ? 'owed' : 'is all set.'}
                 </p>
                 {debts.map((debt) => (
-                  <div className="flex items-center gap-2" key={debt.user.id}>
+                  <div className="flex items-center gap-2" key={debt.id}>
                     <Avatar
-                      {...stringAvatar(debt.user.name)}
+                      {...stringAvatar(debt.name)}
                       sx={{
                         width: 32,
                         height: 32,
                         fontSize: 12,
-                        bgcolor: stringToColor(debt.user.name),
+                        bgcolor: stringToColor(debt.name),
                       }}
                     />
                     <div>
-                      <span className="font-semibold">{debt.user.name} </span>
+                      <span className="font-semibold">{debt.name} </span>
                       {!debt.isDebt && 'owes'}
                     </div>
                     <div

@@ -12,7 +12,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $with = ['payer'];
-
+    protected $guarded = [];
     public function payer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

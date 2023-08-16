@@ -13,6 +13,7 @@ class TripsController extends Controller
     public function index(): Response
     {
         $trips = Trip::withCount('members')
+            ->latest()
             ->withSum('transactions', 'amount')
             ->get();
 
@@ -29,7 +30,7 @@ class TripsController extends Controller
 
         return Inertia::render('Trips/TripDetail', [
             'trip' => $this->mapTrip($trip),
-            'transactions' => $trip->transactions()->paginate(6)->onEachSide(2),
+            'transactions' => $trip->transactions()->latest()->paginate(6),
             'transactionsByCategory' => $trip->getAmountByCategory(),
             'debtTable' => $trip->resolvedTable(),
             'balanceTable' => $trip->getBudgetTable(),

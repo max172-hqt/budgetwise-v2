@@ -38,7 +38,8 @@ class Trip extends Model
         return $total->divide($this->members()->count());
     }
 
-    public function getAmountByCategory() {
+    public function getAmountByCategory()
+    {
         $res = $this->transactions()
             ->select('category', DB::raw('sum(amount) as amount'))
             ->groupBy('category')->get();
@@ -48,21 +49,28 @@ class Trip extends Model
     /**
      * @return array
      */
-    public function getBudgetTable(): array
+    public function getBudgetTable()
     {
         $contributionAmount = $this->getContributionAmount();
 
-        $groupedTransactions = $this->transactions()
-            ->select("user_id", DB::raw('sum(amount) as amount'))
-            ->groupBy('user_id')->get();
+        $users = User::join('trip_user', 'users.id', '=', 'trip_user.user_id')
+            ->leftJoin(
+                'transactions',
+                fn ($join) =>
+                $join
+                    ->on('transactions.user_id', '=', 'users.id')
+                    ->on('trip_user.trip_id', '=', 'transactions.trip_id')
+            )
+            ->select("users.id", 'users.name', 'users.email', DB::raw('sum(transactions.amount) as amount'))
+            ->where('trip_user.trip_id', '=', $this->id)
+            ->groupBy('users.id')
+            ->get();
 
-        $table = [];
-
-        foreach ($groupedTransactions as $key => $value) {
-            $table[$key] = [...$value->toArray(), 'amount' => $value->amount->subtract($contributionAmount)];
+        foreach ($users as $user) {
+            $user->amount = money($user->amount)->subtract($contributionAmount);
         }
 
-        return $table;
+        return $users->toArray();
     }
 
     public function resolvedTable(): array
@@ -96,17 +104,15 @@ class Trip extends Model
                 $table[$start]['amount'] = $table[$start]['amount']->add($amount);
                 $table[$end]['amount'] = $table[$end]['amount']->subtract($amount);
 
-                $resolveTable[$table[$start]['user_id']]['debts'][] = [
-                    'user_id' => $table[$end]['user_id'],
+                $resolveTable[$table[$start]['id']]['debts'][] = [
+                    ...$table[$end],
                     'amount' => $amount,
-                    'user' => $table[$end]['payer'],
                     'isDebt' => true
                 ];
 
-                $resolveTable[$table[$end]['user_id']]['debts'][] = [
-                    'user_id' => $table[$start]['user_id'],
+                $resolveTable[$table[$end]['id']]['debts'][] = [
+                    ...$table[$start],
                     'amount' => $amount,
-                    'user' => $table[$start]['payer'],
                     'isDebt' => false
                 ];
 

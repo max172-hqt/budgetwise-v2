@@ -35,9 +35,11 @@ export interface Transaction {
 }
 
 export interface Debt {
-  user_id: number
+  id: number
   amount: Money
-  user: User
+  name: string
+  email: string
+  isDebt: boolean
 }
 
 export type DebtTable = Record<number, { payer: User; debts: Debt[] }>

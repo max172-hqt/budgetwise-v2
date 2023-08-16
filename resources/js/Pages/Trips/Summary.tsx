@@ -3,7 +3,15 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CATEGORY_COLOR, stringAvatar, stringToColor } from '@/utils/helper'
 import _, { divide } from 'lodash'
 import { Avatar } from '@mui/material'
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts'
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Sector,
+} from 'recharts'
+import classNames from 'classnames'
 
 const renderActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180
@@ -65,7 +73,9 @@ const renderActiveShape = (props: any) => {
         textAnchor={textAnchor}
         fill="#ef4444"
         fontSize={14}
-      ><tspan>{payload.formatted}</tspan></text>
+      >
+        <tspan>{payload.formatted}</tspan>
+      </text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -84,12 +94,13 @@ export default function Summary({
   auth,
   trip,
   transactionsByCategory,
-  debtsInfo,
+  debtsInfo: debts,
 }: PageProps<{
   trip: Trip
   transactionsByCategory: Transaction[]
-  debtsInfo: { payer: User; debts: Debt[] }
+  debtsInfo: Debt[],
 }>) {
+  console.log(debts);
   const [activeIndex, setActiveIndex] = useState(0)
   const onPieEnter = useCallback(
     (_: any, index: number) => {
@@ -119,26 +130,38 @@ export default function Summary({
       <div className="px-5 py-4">
         <h3 className="text-xl font-semibold">Your Summary</h3>
         <div>
-          {!debtsInfo || debtsInfo.debts.length === 0 ? (
-            <p className='text-green-600'>You have no pending debts</p>
+          {!debts || debts.length === 0 ? (
+            <p className="text-green-600">You are all set.</p>
           ) : (
             <div className="flex flex-col gap-2 mt-4">
-              <p className="text-red-500">You owe</p>
-              {debtsInfo.debts.map((debt) => (
-                <div className="flex items-center gap-2" key={debt.user.id}>
+              <p
+                className={classNames('font-semibold mb-2', {
+                  'text-red-500': debts[0].isDebt,
+                  'text-green-600': !debts[0].isDebt,
+                })}
+              >
+                You {debts[0].isDebt ? 'owed' : 'are all set.'}
+              </p>
+              {debts.map((debt) => (
+                <div className="flex items-center gap-2" key={debt.id}>
                   <Avatar
-                    {...stringAvatar(debt.user.name)}
+                    {...stringAvatar(debt.name)}
                     sx={{
                       width: 32,
                       height: 32,
                       fontSize: 12,
-                      bgcolor: stringToColor(debt.user.name),
+                      bgcolor: stringToColor(debt.name),
                     }}
                   />
-                  <div>{debt.user.name}</div>
-                  <div className="text-red-500 font-semibold">
-                    {debt.amount.formatted}
-                  </div>
+                  <div>{debt.name}</div>
+                  <div
+                      className={classNames('font-semibold', {
+                        'text-red-500': debt.isDebt,
+                        'text-green-600': !debt.isDebt,
+                      })}
+                    >
+                      {debt.amount.formatted}
+                    </div>
                 </div>
               ))}
             </div>
@@ -148,33 +171,37 @@ export default function Summary({
       <div className="py-4 w-full flex flex-col gap-4 flex-grow">
         <h3 className="px-5 text-xl font-semibold">Expense details</h3>
         {chartData.length ? (
-        <ResponsiveContainer width="100%" height={300} className="flex-grow">
-          <PieChart width={500} height={300}>
-            <Pie
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-              onMouseEnter={onPieEnter}
-              paddingAngle={8}
-              cornerRadius={4}
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            <Legend verticalAlign="bottom" height={36} formatter={(value, entry, index) => entry.payload.label} />
-          </PieChart>
-        </ResponsiveContainer>
-
-        ): (
-          <div className='text-center py-10 font-bold text-gray-400'>No data to display</div>
-
+          <ResponsiveContainer width="100%" height={300} className="flex-grow">
+            <PieChart width={500} height={300}>
+              <Pie
+                activeIndex={activeIndex}
+                activeShape={renderActiveShape}
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+                onMouseEnter={onPieEnter}
+                paddingAngle={chartData.length < 2 ? 0 : 8}
+                cornerRadius={4}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                formatter={(value, entry, index) => entry.payload.label}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="text-center py-10 font-bold text-gray-400">
+            No data to display
+          </div>
         )}
       </div>
     </div>

@@ -17,6 +17,7 @@ const TripDetail = ({
   debtTable: DebtTable
   transactions: Transaction[]
   transactionsByCategory: Transaction[]
+  balanceTable: any
 }>) => {
   return (
     <>
@@ -30,15 +31,24 @@ const TripDetail = ({
                 trip={trip}
                 auth={auth}
                 transactionsByCategory={transactionsByCategory}
-                debtsInfo={debtTable[auth.user.id]}
+                debtsInfo={debtTable[auth.user.id].debts}
               />
             </div>
             <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-lg">
-              <TransactionTable transactions={transactions} auth={auth} />
+              <TransactionTable
+                tripId={trip.id}
+                transactions={transactions}
+                auth={auth}
+              />
             </div>
           </div>
           <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow mt-4 rounded-lg">
-            <Insight auth={auth} trip={trip} debtTable={debtTable} balanceTable={balanceTable} />
+            <Insight
+              auth={auth}
+              trip={trip}
+              debtTable={debtTable}
+              balanceTable={balanceTable}
+            />
           </div>
         </div>
       </div>
