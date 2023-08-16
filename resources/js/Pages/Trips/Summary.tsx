@@ -98,9 +98,9 @@ export default function Summary({
 }: PageProps<{
   trip: Trip
   transactionsByCategory: Transaction[]
-  debtsInfo: Debt[],
+  debtsInfo: Debt[]
 }>) {
-  console.log(debts);
+  console.log(trip)
   const [activeIndex, setActiveIndex] = useState(0)
   const onPieEnter = useCallback(
     (_: any, index: number) => {
@@ -121,11 +121,19 @@ export default function Summary({
 
   return (
     <div>
-      <header className="px-5 py-4">
-        <h2 className="font-bold text-gray-800 text-4xl">
-          {trip.totalExpenses.formatted}
-        </h2>
-        <div className="text-gray-400 mt-1">Total Trip Expenses</div>
+      <header className="px-5 py-4 flex justify-between">
+        <div>
+          <h2 className="font-bold text-gray-800 text-4xl">
+            {trip.totalExpenses.formatted}
+          </h2>
+          <div className="text-gray-400 mt-1">Total Trip Expenses</div>
+        </div>
+        <div>
+          <h2 className="font-bold text-gray-800 text-4xl">
+            {trip.contribution.formatted}
+          </h2>
+          <div className="text-gray-400 mt-1">Individual Contribution</div>
+        </div>
       </header>
       <div className="px-5 py-4">
         <h3 className="text-xl font-semibold">Your Summary</h3>
@@ -155,13 +163,13 @@ export default function Summary({
                   />
                   <div>{debt.name}</div>
                   <div
-                      className={classNames('font-semibold', {
-                        'text-red-500': debt.isDebt,
-                        'text-green-600': !debt.isDebt,
-                      })}
-                    >
-                      {debt.amount.formatted}
-                    </div>
+                    className={classNames('font-semibold', {
+                      'text-red-500': debt.isDebt,
+                      'text-green-600': !debt.isDebt,
+                    })}
+                  >
+                    {debt.amount.formatted}
+                  </div>
                 </div>
               ))}
             </div>

@@ -24,7 +24,6 @@ export default function Insight({
   debtTable: DebtTable
   balanceTable: any
 }>) {
-  console.log(balanceTable)
   const [user, setUser] = useState(auth.user)
 
   const debts = useMemo(() => {
@@ -32,7 +31,7 @@ export default function Insight({
       return []
     }
     return debtTable[user.id].debts
-  }, [user])
+  }, [user, debtTable])
 
   const chartData = useMemo(() => {
     return balanceTable.map((balance) => ({
@@ -71,8 +70,7 @@ export default function Insight({
               <YAxis
                 fontSize={14}
                 tickFormatter={(value, index) => {
-                  if (value === 0) return trip.contribution.formatted
-                  if (value > 0) return `$${value}`
+                  if (value >= 0) return `$${value}`
                   return `-$${Math.abs(value)}`
                 }}
               />
@@ -174,7 +172,7 @@ export default function Insight({
                     />
                     <div>
                       <span className="font-semibold">{debt.name} </span>
-                      {!debt.isDebt && 'owes'}
+                      {!debt.isDebt && 'owed'}
                     </div>
                     <div
                       className={classNames('font-semibold', {
