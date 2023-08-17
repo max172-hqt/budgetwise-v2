@@ -23,7 +23,7 @@ class TransactionFactory extends Factory
             'trip_id' => Trip::factory(),
             'name' => fake()->sentence(),
             'category' => fake()->randomElement(['transportation', 'food', 'accomodation', 'miscellaneous']),
-            'amount' => fake()->randomFloat(2, 1, 1000),
+            'amount' => fake()->randomFloat(2, 1, 100),
         ];
     }
 }

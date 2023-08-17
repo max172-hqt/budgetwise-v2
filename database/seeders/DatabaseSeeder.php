@@ -38,13 +38,13 @@ class DatabaseSeeder extends Seeder
             $trip->members()->syncWithoutDetaching($users);
         }
 
-        Transaction::factory(3)->create([
+        Transaction::factory(2)->create([
             'user_id' => $user,
             'trip_id' => $trips[0]
         ]);
 
         foreach ($users as $user) {
-            Transaction::factory(rand(1,5))->create([
+            Transaction::factory(rand(1,3))->create([
                 'user_id' => $user,
                 'trip_id' => $trips[0]
             ]);

@@ -4,7 +4,8 @@ import { PageProps } from '@/types'
 export default function Welcome({ auth }: PageProps) {
   return (
     <>
-      <Head title="Budget Wise V2" />
+      <Head title="Budget Wise" />
+      
       <div className="relative sm:flex sm:justify-center sm:items-center max-w-5xl mx-auto min-h-screen bg-dots-darker bg-center  selection:bg-red-500 selection:text-white">
         <div className="flex flex-col text-center max-w-5xl">
           <h1 className="max-w-3xl mx-auto text-5xl font-bold text-center md:text-6xl lg:text-7xl">
