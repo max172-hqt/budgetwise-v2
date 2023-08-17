@@ -13,7 +13,7 @@ export default function CreateTransactionModel({
   handleOpenModal,
   handleCloseModal,
 }: any) {
-  const { data, setData, post, errors, processing, recentlySuccessful } =
+  const { data, setData, post, errors, processing, recentlySuccessful, reset } =
     useForm({
       name: '',
       amount: '',
@@ -29,6 +29,7 @@ export default function CreateTransactionModel({
     e.preventDefault()
     post('/transactions')
     handleCloseModal()
+    reset()
   }
 
   return (
@@ -46,7 +47,7 @@ export default function CreateTransactionModel({
             <div className="flex w-full">
               <form onSubmit={submit} className="w-full">
                 <div className="mt-2 space-y-6 w-full  px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <h2 className='text-xl font-extrabold'>Log a new bill</h2>
+                  <h2 className='text-xl font-extrabold'>Create a new bill</h2>
                   <div>
                     <InputLabel htmlFor="name" value="Name" />
 

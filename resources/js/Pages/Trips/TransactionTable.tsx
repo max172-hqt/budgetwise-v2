@@ -45,7 +45,7 @@ export default function TransactionTable({
           className="font-extrabold bg-sky-500 rounded text-white hover:bg-sky-600 uppercase px-4 py-2"
           onClick={handleOpenModal}
         >
-          Log Bill
+          Create Bill
         </button>
       </header>
       <div className="p-3">
