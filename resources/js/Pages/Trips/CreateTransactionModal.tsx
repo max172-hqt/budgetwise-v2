@@ -94,7 +94,7 @@ export default function CreateTransactionModel({
                       onChange={(e) => setData('category', e.target.value)}
                       required
                     >
-                      <option selected>Choose a category</option>
+                      <option>Choose a category</option>
                       <option value="transportation">Transportation</option>
                       <option value="food">Food</option>
                       <option value="accomodation">Accomodation</option>

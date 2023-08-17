@@ -1,10 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, usePage } from '@inertiajs/react'
 import { DebtTable, PageProps, Transaction, Trip } from '@/types'
-import TransactionTable from './TransactionTable'
 import Summary from './Summary'
-import Insight from './Insight'
 import FlashMessage from '@/Components/FlashMessage'
+import TransactionTable from './TransactionTable'
+import Insight from './Insight'
 
 const TripDetail = ({
   auth,
@@ -36,7 +36,7 @@ const TripDetail = ({
                 trip={trip}
                 auth={auth}
                 transactionsByCategory={transactionsByCategory}
-                debtsInfo={debtTable[auth.user.id]?.debts ?? []}
+                debtsInfo={debtTable[auth.user?.id]?.debts ?? []}
               />
             </div>
             <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-lg">
@@ -61,16 +61,20 @@ const TripDetail = ({
   )
 }
 
-TripDetail.layout = (page: any) => (
-  <AuthenticatedLayout
-    header={
-      <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-        {page.props.trip.name}
-      </h2>
-    }
-    user={page.props.auth.user}
-    children={page}
-  />
-)
+TripDetail.layout = (page: any) => {
+  const user = page.props.auth.user;
+
+  return (
+    <AuthenticatedLayout
+      header={
+        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+          {page.props.trip.name}
+        </h2>
+      }
+      user={page.props.auth.user}
+      children={page}
+    />
+  )
+}
 
 export default TripDetail

@@ -12,8 +12,10 @@ class TripsController extends Controller
 {
     public function index(): Response
     {
-        $trips = Trip::withCount('members')
+        $trips = auth()->user()
+            ->trips()
             ->latest()
+            ->with('admin')
             ->withSum('transactions', 'amount')
             ->get();
 
@@ -22,11 +24,26 @@ class TripsController extends Controller
         ]);
     }
 
-    public function show(int $id): Response
+    public function show(int|string $id): Response
     {
         $trip = Trip::with('members')
             ->withSum('transactions', 'amount')
             ->findOrFail($id);
+
+        return Inertia::render('Trips/TripDetail', [
+            'trip' => $this->mapTrip($trip),
+            'transactions' => $trip->transactions()->latest()->paginate(6),
+            'transactionsByCategory' => $trip->getAmountByCategory(),
+            'debtTable' => $trip->resolvedTable(),
+            'balanceTable' => $trip->getBudgetTable(),
+        ]);
+    }
+
+    public function showSample(): Response
+    {
+        $trip = Trip::with('members')
+            ->withSum('transactions', 'amount')
+            ->findOrFail(1);
 
         return Inertia::render('Trips/TripDetail', [
             'trip' => $this->mapTrip($trip),
@@ -74,6 +91,7 @@ class TripsController extends Controller
             'description' => $trip->description,
             'members' => $trip->members,
             'contribution' => $trip->getContributionAmount(),
+            'admin' => $trip->admin,
         ];
     }
 }

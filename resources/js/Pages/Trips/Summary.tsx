@@ -134,47 +134,49 @@ export default function Summary({
           <div className="text-gray-400 mt-1">Individual Contribution</div>
         </div>
       </header>
-      <div className="px-5 py-4 ">
-        <h3 className="text-xl font-semibold mb-4">Your Summary</h3>
-        <div className='max-h-40 overflow-auto'>
-          {!debts || debts.length === 0 ? (
-            <p className="text-green-600">You are all set.</p>
-          ) : (
-            <div className="flex flex-col gap-2">
-              <p
-                className={classNames('font-semibold mb-2', {
-                  'text-red-500': debts[0].isDebt,
-                  'text-green-600': !debts[0].isDebt,
-                })}
-              >
-                You {debts[0].isDebt ? 'owed' : 'are all set.'}
-              </p>
-              {debts.map((debt) => (
-                <div className="flex items-center gap-2" key={debt.id}>
-                  <Avatar
-                    {...stringAvatar(debt.name)}
-                    sx={{
-                      width: 32,
-                      height: 32,
-                      fontSize: 12,
-                      bgcolor: stringToColor(debt.name),
-                    }}
-                  />
-                  <div>{debt.name}</div>
-                  <div
-                    className={classNames('font-semibold', {
-                      'text-red-500': debt.isDebt,
-                      'text-green-600': !debt.isDebt,
-                    })}
-                  >
-                    {debt.amount.formatted}
+      {auth.user && (
+        <div className="px-5 py-4 ">
+          <h3 className="text-xl font-semibold mb-4">Your Summary</h3>
+          <div className="max-h-40 overflow-auto">
+            {!debts || debts.length === 0 ? (
+              <p className="text-green-600">You are all set.</p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <p
+                  className={classNames('font-semibold mb-2', {
+                    'text-red-500': debts[0].isDebt,
+                    'text-green-600': !debts[0].isDebt,
+                  })}
+                >
+                  You {debts[0].isDebt ? 'owed' : 'are all set.'}
+                </p>
+                {debts.map((debt) => (
+                  <div className="flex items-center gap-2" key={debt.id}>
+                    <Avatar
+                      {...stringAvatar(debt.name)}
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        fontSize: 12,
+                        bgcolor: stringToColor(debt.name),
+                      }}
+                    />
+                    <div>{debt.name}</div>
+                    <div
+                      className={classNames('font-semibold', {
+                        'text-red-500': debt.isDebt,
+                        'text-green-600': !debt.isDebt,
+                      })}
+                    >
+                      {debt.amount.formatted}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <div className="py-4 w-full flex flex-col gap-4 flex-grow">
         <h3 className="px-5 text-xl font-semibold">Expense details</h3>
         {chartData.length ? (

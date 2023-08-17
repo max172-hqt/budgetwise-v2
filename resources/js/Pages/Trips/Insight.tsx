@@ -24,7 +24,7 @@ export default function Insight({
   debtTable: DebtTable
   balanceTable: any
 }>) {
-  const [user, setUser] = useState(auth.user)
+  const [user, setUser] = useState(auth.user ?? trip.members[0]);
 
   const debts = useMemo(() => {
     if (!debtTable[user.id]) {
@@ -137,7 +137,7 @@ export default function Insight({
                     'text-gray-800 font-bold': member.id === user.id,
                   })}
                 >
-                  {member.name} {member.id === auth.user.id && '(You)'}
+                  {member.name} {auth.user && member.id === auth.user.id && '(You)'}
                 </div>
               </button>
             ))}

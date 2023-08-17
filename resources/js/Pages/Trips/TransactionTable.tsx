@@ -9,6 +9,7 @@ import { stringAvatar, stringToColor } from '@/utils/helper'
 import { useState } from 'react'
 import Pagination from '@/Components/Pagination'
 import CreateTransactionModel from './CreateTransactionModal'
+import { Link } from '@inertiajs/react'
 
 const CategoryIcon = ({
   category,
@@ -31,7 +32,9 @@ export default function TransactionTable({
   auth,
   tripId,
   transactions,
-}: PageProps<{ transactions: any, tripId: number }>) {
+}: PageProps<{ transactions: any; tripId: number }>) {
+  const user = auth.user
+
   const [open, setOpen] = useState(false)
 
   const handleOpenModal = () => setOpen(true)
@@ -41,12 +44,21 @@ export default function TransactionTable({
     <div>
       <header className="px-5 py-4 flex justify-between">
         <h2 className="font-semibold text-gray-800 text-4xl">Bill History</h2>
-        <button
-          className="font-extrabold bg-sky-500 rounded text-white hover:bg-sky-600 uppercase px-4 py-2"
-          onClick={handleOpenModal}
-        >
-          Create Bill
-        </button>
+        {user ? (
+          <button
+            className="font-extrabold bg-green-500 rounded text-white hover:bg-sky-600 uppercase px-4 py-2"
+            onClick={handleOpenModal}
+          >
+            Create Bill
+          </button>
+        ) : (
+          <Link
+            className="font-extrabold px-4 py-2 text-sky-500 hover:underline"
+            href={route('login')}
+          >
+            Log in to create bill
+          </Link>
+        )}
       </header>
       <div className="p-3">
         <div className="overflow-x-auto flex flex-col">
@@ -99,7 +111,7 @@ export default function TransactionTable({
                           />
                         </div>
                         <div className="font-medium text-gray-800 text-sm">
-                          {transaction.payer.id === auth.user.id
+                          {user && transaction.payer.id === user.id
                             ? 'You'
                             : transaction.payer.name.split(' ')[0]}
                         </div>

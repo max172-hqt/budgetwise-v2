@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'password' => '123456aA'
         ]);
 
-        $trips = Trip::factory(1)
+        $trips = Trip::factory(5)
             ->create([
                 'name' => 'Toronto Summer Trip 2023',
                 'user_id' => $user,

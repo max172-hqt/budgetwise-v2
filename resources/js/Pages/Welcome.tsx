@@ -25,8 +25,15 @@ export default function Welcome({ auth }: PageProps) {
             ) : (
               <>
                 <Link
+                  href={route('trip.sample')}
+                  className="font-extrabold bg-sky-500 text-white hover:bg-sky-600 uppercase px-4 py-2"
+                >
+                  View Sample Trip
+                </Link>
+
+                <Link
                   href={route('login')}
-                  className="font-extrabold bg-red-500 text-white hover:bg-red-600 uppercase px-4 py-2"
+                  className="ml-4 font-semibold text-gray-600 hover:text-gray-900  focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-50a uppercase"
                 >
                   Log in
                 </Link>

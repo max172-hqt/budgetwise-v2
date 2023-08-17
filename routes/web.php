@@ -45,6 +45,11 @@ Route::post(
 )->middleware(['auth', 'verified'])->name('trip.store');
 
 Route::get(
+    '/trips/sample',
+    [TripsController::class, 'showSample']
+)->name('trip.sample');
+
+Route::get(
     '/trips/{id}',
     [TripsController::class, 'show']
 )->middleware(['auth', 'verified'])->name('trip.show');

@@ -7,7 +7,7 @@ import CreateIcon from '@mui/icons-material/Create'
 export default function TripCard({ trip, user }: { trip: Trip; user: User }) {
   console.log(trip)
   return (
-    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-2">
+    <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden sm:rounded-xl col-span-2">
       <div className="py-6 px-5 h-full flex flex-col">
         <div className="flex flex-col flex-grow gap-2">
           <h3 className="font-extrabold truncate">{trip.name}</h3>
@@ -20,10 +20,15 @@ export default function TripCard({ trip, user }: { trip: Trip; user: User }) {
               <AccountBalanceIcon className="mr-2" />
               <span>{trip.totalExpenses.formatted} Total Expenses</span>
             </p>
-            {user.id === trip.userId && (
+            {user.id === trip.userId ? (
               <p className="text-sm text-gray-600">
                 <CreateIcon className="mr-2" />
                 <span>Created by you</span>
+              </p>
+            ) : (
+              <p className="text-sm text-gray-600">
+                <CreateIcon className="mr-2" />
+                <span>Invited by {trip.admin.name}</span>
               </p>
             )}
           </div>
@@ -32,7 +37,7 @@ export default function TripCard({ trip, user }: { trip: Trip; user: User }) {
         <div>
           <Link
             href={route('trip.show', { id: trip.id })}
-            className="font-extrabold bg-green-500 text-white hover:bg-green-600 uppercase px-4 py-2 text-sm rounded"
+            className="font-extrabold bg-sky-500 text-white hover:bg-sky-600 uppercase px-4 py-2 text-sm rounded"
           >
             Go to trip
           </Link>
