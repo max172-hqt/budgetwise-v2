@@ -31,7 +31,7 @@ export default function TransactionTable({
   auth,
   tripId,
   transactions,
-}: PageProps<{ transactions: Transaction[] }>) {
+}: PageProps<{ transactions: any, tripId: number }>) {
   const [open, setOpen] = useState(false)
 
   const handleOpenModal = () => setOpen(true)

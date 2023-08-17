@@ -20,7 +20,7 @@ const TripDetail = ({
   transactionsByCategory: Transaction[]
   balanceTable: any
 }>) => {
-  const { flash } = usePage().props
+  const { flash } = usePage().props as any
 
   return (
     <>

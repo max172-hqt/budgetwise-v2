@@ -23,7 +23,7 @@ export default function CreateTransactionModel({
 
   const ref = useClickAway(() => {
     handleCloseModal()
-  })
+  }) as React.MutableRefObject<HTMLInputElement>;
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault()

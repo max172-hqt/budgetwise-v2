@@ -15,6 +15,7 @@ export interface Trip {
   description: string
   transactions: Transaction[]
   members?: User[]
+  contribution: Money
 }
 
 export interface Money {

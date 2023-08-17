@@ -201,7 +201,7 @@ export default function Summary({
               <Legend
                 verticalAlign="bottom"
                 height={36}
-                formatter={(value, entry, index) => entry.payload.label}
+                formatter={(value, entry: any, index) => entry.payload.label}
               />
             </PieChart>
           </ResponsiveContainer>

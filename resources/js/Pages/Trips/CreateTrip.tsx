@@ -73,7 +73,7 @@ function CreateTrip() {
               loadOptions={promiseOptions}
               onChange={addUsers}
               value={users}
-              isClearable={users.some((user) => user.value !== user.id)}
+              // isClearable={users.some((user) => user.value !== user.id)}
             />
 
             <form onSubmit={submit} className="mt-6 space-y-6 max-w-xl">
