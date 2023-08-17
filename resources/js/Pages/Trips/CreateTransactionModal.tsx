@@ -47,7 +47,7 @@ export default function CreateTransactionModel({
             <div className="flex w-full">
               <form onSubmit={submit} className="w-full">
                 <div className="mt-2 space-y-6 w-full  px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <h2 className='text-xl font-extrabold'>Create a new bill</h2>
+                  <h2 className='text-xl font-extrabold'>Create Bill</h2>
                   <div>
                     <InputLabel htmlFor="name" value="Name" />
 
