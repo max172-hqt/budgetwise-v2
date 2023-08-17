@@ -178,7 +178,7 @@ export default function Summary({
         </div>
       )}
       <div className="py-4 w-full flex flex-col gap-4 flex-grow">
-        <h3 className="px-5 text-xl font-semibold">Expense details</h3>
+        <h3 className="px-5 text-xl font-semibold">Expense Overview</h3>
         {chartData.length ? (
           <ResponsiveContainer width="100%" height={300} className="flex-grow">
             <PieChart width={500} height={300}>

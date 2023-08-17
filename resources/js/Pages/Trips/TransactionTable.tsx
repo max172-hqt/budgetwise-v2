@@ -46,7 +46,7 @@ export default function TransactionTable({
         <h2 className="font-semibold text-gray-800 text-4xl">Bill History</h2>
         {user ? (
           <button
-            className="font-extrabold bg-green-500 rounded text-white hover:bg-sky-600 uppercase px-4 py-2"
+            className="font-extrabold bg-green-500 rounded text-white hover:bg-green-600 uppercase px-4 py-2"
             onClick={handleOpenModal}
           >
             Create Bill

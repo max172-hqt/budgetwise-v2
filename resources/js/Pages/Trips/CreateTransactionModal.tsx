@@ -27,7 +27,7 @@ export default function CreateTransactionModel({
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault()
-    post('/transactions')
+    post('/transactions', { preserveScroll: true })
     handleCloseModal()
     reset()
   }

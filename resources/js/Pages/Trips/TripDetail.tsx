@@ -31,7 +31,7 @@ const TripDetail = ({
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className=" overflow-hidden grid lg:grid-cols-6 gap-4">
-            <div className="bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-lg">
+            <div className="bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-xl">
               <Summary
                 trip={trip}
                 auth={auth}
@@ -39,7 +39,7 @@ const TripDetail = ({
                 debtsInfo={debtTable[auth.user?.id]?.debts ?? []}
               />
             </div>
-            <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-lg">
+            <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow rounded-xl">
               <TransactionTable
                 tripId={trip.id}
                 transactions={transactions}
@@ -47,7 +47,7 @@ const TripDetail = ({
               />
             </div>
           </div>
-          <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow mt-4 rounded-lg">
+          <div className=" bg-white py-6 px-5 h-full flex flex-col col col-span-3 flex-grow mt-4 rounded-xl">
             <Insight
               auth={auth}
               trip={trip}

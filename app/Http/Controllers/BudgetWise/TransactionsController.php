@@ -4,12 +4,20 @@ namespace App\Http\Controllers\BudgetWise;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Models\Trip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TransactionsController extends Controller
 {
     public function store(Request $request)
     {
+        $trip = Trip::findOrFail($request->tripId);
+
+        if (! Gate::allows('create_transaction', $trip)) {
+            abort(403);
+        }
+
         $attributes = $request->validate([
             'name' => ['required', 'max:50'],
             'amount' => ['required', 'decimal:0,2', 'numeric', 'between:1,10000'],
