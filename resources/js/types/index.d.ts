@@ -16,6 +16,7 @@ export interface Trip {
   transactions: Transaction[]
   members?: User[]
   contribution: Money
+  admin: User
 }
 
 export interface Money {
