@@ -15,7 +15,7 @@ function Trips({ auth, trips }: PageProps<{ trips: Trip[] }>) {
               href={route('trip.create')}
               className="font-extrabold bg-green-500 rounded text-white hover:bg-green-600 uppercase px-4 py-2"
             >
-              Create New Trip
+              Create Trip
             </Link>
           </div>
           <div className="lg:grid lg:grid-cols-6 gap-4">
